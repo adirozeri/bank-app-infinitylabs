@@ -27,7 +27,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/transactions', transactionsRouter);
 app.use('/api/chat', chatRouter);
 
-const publicDir = join(__dirname, '../../public');
+const publicDir = join(__dirname, '../public');
 app.use(express.static(publicDir));
 app.get('/{*path}', (_req, res) => res.sendFile(join(publicDir, 'index.html')));
 
