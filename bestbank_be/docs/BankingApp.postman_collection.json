@@ -1,0 +1,1224 @@
+{
+  "info": {
+    "_postman_id": "2e70a048-4659-451d-a422-c3067725017e",
+    "name": "BankingApp",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "643785"
+  },
+  "item": [
+    {
+      "name": "SendReceive",
+      "item": [
+        {
+          "name": "1. Register sender",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"sender@test.com\",\n    \"password\": \"Secret123!\",\n    \"phone\": \"+972501234567\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "2. Get sender OTP",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();",
+                  "pm.collectionVariables.set('senderOtp', response.otp);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/auth/debug-otp/sender@test.com",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "debug-otp",
+                "sender@test.com"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "3. Verify sender",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"sender@test.com\",\n    \"otp\": \"{{senderOtp}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/verify-otp",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "verify-otp"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "4. Register receiver",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"receiver@test.com\",\n    \"password\": \"Secret123!\",\n    \"phone\": \"+972501234567\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "5. Get receiver OTP",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();",
+                  "pm.collectionVariables.set('receiverOtp', response.otp);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/auth/debug-otp/receiver@test.com",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "debug-otp",
+                "receiver@test.com"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "6. Verify receiver",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"receiver@test.com\",\n    \"otp\": \"{{receiverOtp}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/verify-otp",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "verify-otp"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "7. Login as sender",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();",
+                  "pm.collectionVariables.set('senderToken', response.token);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"sender@test.com\",\n    \"password\": \"Secret123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "8. Check sender balance before transfer",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();",
+                  "pm.collectionVariables.set('senderBalanceBefore', response.balance);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{senderToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/account/me",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "account",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "9. Login as receiver",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();",
+                  "pm.collectionVariables.set('receiverToken', response.token);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"receiver@test.com\",\n    \"password\": \"Secret123!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "10. Check receiver balance before transfer",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();",
+                  "pm.collectionVariables.set('receiverBalanceBefore', response.balance);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{receiverToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/account/me",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "account",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "11. Transfer",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{senderToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"receiverEmail\": \"receiver@test.com\",\n    \"amount\": 100\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/transactions",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "transactions"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "12. Check sender balance after transfer",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();",
+                  "const before = pm.collectionVariables.get('senderBalanceBefore');",
+                  "pm.test('Sender balance decreased by 100', () => {",
+                  "    pm.expect(response.balance).to.equal(Number(before) - 100);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{senderToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/account/me",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "account",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "13. Check receiver balance after transfer",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();",
+                  "const before = pm.collectionVariables.get('receiverBalanceBefore');",
+                  "pm.test('Receiver balance increased by 100', () => {",
+                  "    pm.expect(response.balance).to.equal(Number(before) + 100);",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{receiverToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/account/me",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "account",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "14. Delete sender",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{senderToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/account/me",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "account",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "15. Delete receiver",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{receiverToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/account/me",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "account",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Create and Delete User",
+      "item": [
+        {
+          "name": "1. Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"testuser@test.com\",\n    \"password\": \"Secret123!\",\n    \"phone\": \"+972501234567\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "2. Get OTP",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();",
+                  "pm.collectionVariables.set('debugOtp', response.otp);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/auth/debug-otp/testuser@test.com",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "debug-otp",
+                "testuser@test.com"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "3. Verify",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();",
+                  "pm.collectionVariables.set('debugToken', response.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"testuser@test.com\",\n    \"otp\": \"{{debugOtp}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/verify-otp",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "verify-otp"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "4. Delete",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/auth/debug-delete/testuser@test.com",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "debug-delete",
+                "testuser@test.com"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Real Email Flow",
+      "item": [
+        {
+          "name": "AfterEmailVerification",
+          "item": [
+            {
+              "name": "2. Login",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const response = pm.response.json();",
+                      "pm.collectionVariables.set('realToken', response.token);"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"email\": \"adirozeri@gmail.com\",\n    \"password\": \"Secret123!\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/api/auth/login",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "api",
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "3. Check balance",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{realToken}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/api/account/me",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "api",
+                    "account",
+                    "me"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "4. Delete",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/api/auth/debug-delete/adirozeri@gmail.com",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "api",
+                    "auth",
+                    "debug-delete",
+                    "adirozeri@gmail.com"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "1. Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"adirozeri@gmail.com\",\n    \"password\": \"Secret123!\",\n    \"phone\": \"+972501234567\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Expiry Suite 1 - Verify triggers new OTP",
+      "item": [
+        {
+          "name": "1. Register",
+          "event": [{ "listen": "test", "script": { "exec": ["pm.test('201 created', () => pm.response.to.have.status(201));"], "type": "text/javascript" } }],
+          "request": {
+            "method": "POST", "header": [],
+            "body": { "mode": "raw", "raw": "{\n    \"email\": \"expiry-test@test.com\",\n    \"password\": \"Secret123!\",\n    \"phone\": \"+972501234567\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "http://localhost:3000/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "auth", "register"] }
+          },
+          "response": []
+        },
+        {
+          "name": "2. Register same email (window active)",
+          "event": [{ "listen": "test", "script": { "exec": ["pm.test('400 not verified yet', () => { pm.response.to.have.status(400); pm.expect(pm.response.json().error).to.include('not verified yet'); });"], "type": "text/javascript" } }],
+          "request": {
+            "method": "POST", "header": [],
+            "body": { "mode": "raw", "raw": "{\n    \"email\": \"expiry-test@test.com\",\n    \"password\": \"Secret123!\",\n    \"phone\": \"+972501234567\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "http://localhost:3000/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "auth", "register"] }
+          },
+          "response": []
+        },
+        {
+          "name": "3. Verify with wrong OTP",
+          "event": [{ "listen": "test", "script": { "exec": ["pm.test('400 incorrect OTP', () => { pm.response.to.have.status(400); pm.expect(pm.response.json().error).to.include('Incorrect OTP'); });"], "type": "text/javascript" } }],
+          "request": {
+            "method": "POST", "header": [],
+            "body": { "mode": "raw", "raw": "{\n    \"email\": \"expiry-test@test.com\",\n    \"otp\": \"000000\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "http://localhost:3000/api/auth/verify-otp", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "auth", "verify-otp"] }
+          },
+          "response": []
+        },
+        {
+          "name": "4. Force-expire OTP",
+          "event": [{ "listen": "test", "script": { "exec": ["pm.test('200 expired', () => pm.response.to.have.status(200));"], "type": "text/javascript" } }],
+          "request": {
+            "method": "POST", "header": [],
+            "url": { "raw": "http://localhost:3000/api/auth/debug-expire-otp/expiry-test@test.com", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "auth", "debug-expire-otp", "expiry-test@test.com"] }
+          },
+          "response": []
+        },
+        {
+          "name": "5. Verify after expiry",
+          "event": [{ "listen": "test", "script": { "exec": ["pm.test('400 verification expired', () => { pm.response.to.have.status(400); pm.expect(pm.response.json().error).to.include('Verification expired'); });"], "type": "text/javascript" } }],
+          "request": {
+            "method": "POST", "header": [],
+            "body": { "mode": "raw", "raw": "{\n    \"email\": \"expiry-test@test.com\",\n    \"otp\": \"000000\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "http://localhost:3000/api/auth/verify-otp", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "auth", "verify-otp"] }
+          },
+          "response": []
+        },
+        {
+          "name": "6. Get new OTP",
+          "event": [{ "listen": "test", "script": { "exec": ["const r = pm.response.json(); pm.collectionVariables.set('expiryTestOtp', r.otp); pm.test('got otp', () => pm.response.to.have.status(200));"], "type": "text/javascript" } }],
+          "request": {
+            "method": "GET", "header": [],
+            "url": { "raw": "http://localhost:3000/api/auth/debug-otp/expiry-test@test.com", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "auth", "debug-otp", "expiry-test@test.com"] }
+          },
+          "response": []
+        },
+        {
+          "name": "7. Verify with new OTP",
+          "event": [{ "listen": "test", "script": { "exec": ["pm.test('200 verified', () => { pm.response.to.have.status(200); pm.expect(pm.response.json().token).to.be.a('string'); });"], "type": "text/javascript" } }],
+          "request": {
+            "method": "POST", "header": [],
+            "body": { "mode": "raw", "raw": "{\n    \"email\": \"expiry-test@test.com\",\n    \"otp\": \"{{expiryTestOtp}}\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "http://localhost:3000/api/auth/verify-otp", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "auth", "verify-otp"] }
+          },
+          "response": []
+        },
+        {
+          "name": "8. Delete user",
+          "event": [{ "listen": "test", "script": { "exec": ["pm.test('200 deleted', () => pm.response.to.have.status(200));"], "type": "text/javascript" } }],
+          "request": {
+            "method": "DELETE", "header": [],
+            "url": { "raw": "http://localhost:3000/api/auth/debug-delete/expiry-test@test.com", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "auth", "debug-delete", "expiry-test@test.com"] }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Expiry Suite 2 - Register triggers new OTP",
+      "item": [
+        {
+          "name": "1. Register",
+          "event": [{ "listen": "test", "script": { "exec": ["pm.test('201 created', () => pm.response.to.have.status(201));"], "type": "text/javascript" } }],
+          "request": {
+            "method": "POST", "header": [],
+            "body": { "mode": "raw", "raw": "{\n    \"email\": \"expiry-test@test.com\",\n    \"password\": \"Secret123!\",\n    \"phone\": \"+972501234567\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "http://localhost:3000/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "auth", "register"] }
+          },
+          "response": []
+        },
+        {
+          "name": "2. Register same email (window active)",
+          "event": [{ "listen": "test", "script": { "exec": ["pm.test('400 not verified yet', () => { pm.response.to.have.status(400); pm.expect(pm.response.json().error).to.include('not verified yet'); });"], "type": "text/javascript" } }],
+          "request": {
+            "method": "POST", "header": [],
+            "body": { "mode": "raw", "raw": "{\n    \"email\": \"expiry-test@test.com\",\n    \"password\": \"Secret123!\",\n    \"phone\": \"+972501234567\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "http://localhost:3000/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "auth", "register"] }
+          },
+          "response": []
+        },
+        {
+          "name": "3. Verify with wrong OTP",
+          "event": [{ "listen": "test", "script": { "exec": ["pm.test('400 incorrect OTP', () => { pm.response.to.have.status(400); pm.expect(pm.response.json().error).to.include('Incorrect OTP'); });"], "type": "text/javascript" } }],
+          "request": {
+            "method": "POST", "header": [],
+            "body": { "mode": "raw", "raw": "{\n    \"email\": \"expiry-test@test.com\",\n    \"otp\": \"000000\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "http://localhost:3000/api/auth/verify-otp", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "auth", "verify-otp"] }
+          },
+          "response": []
+        },
+        {
+          "name": "4. Force-expire OTP",
+          "event": [{ "listen": "test", "script": { "exec": ["pm.test('200 expired', () => pm.response.to.have.status(200));"], "type": "text/javascript" } }],
+          "request": {
+            "method": "POST", "header": [],
+            "url": { "raw": "http://localhost:3000/api/auth/debug-expire-otp/expiry-test@test.com", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "auth", "debug-expire-otp", "expiry-test@test.com"] }
+          },
+          "response": []
+        },
+        {
+          "name": "5. Register same email after expiry",
+          "event": [{ "listen": "test", "script": { "exec": ["pm.test('400 verification time expired', () => { pm.response.to.have.status(400); pm.expect(pm.response.json().error).to.include('Verification time expired'); });"], "type": "text/javascript" } }],
+          "request": {
+            "method": "POST", "header": [],
+            "body": { "mode": "raw", "raw": "{\n    \"email\": \"expiry-test@test.com\",\n    \"password\": \"Secret123!\",\n    \"phone\": \"+972501234567\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "http://localhost:3000/api/auth/register", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "auth", "register"] }
+          },
+          "response": []
+        },
+        {
+          "name": "6. Get new OTP",
+          "event": [{ "listen": "test", "script": { "exec": ["const r = pm.response.json(); pm.collectionVariables.set('expiryTestOtp', r.otp); pm.test('got otp', () => pm.response.to.have.status(200));"], "type": "text/javascript" } }],
+          "request": {
+            "method": "GET", "header": [],
+            "url": { "raw": "http://localhost:3000/api/auth/debug-otp/expiry-test@test.com", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "auth", "debug-otp", "expiry-test@test.com"] }
+          },
+          "response": []
+        },
+        {
+          "name": "7. Verify with new OTP",
+          "event": [{ "listen": "test", "script": { "exec": ["pm.test('200 verified', () => { pm.response.to.have.status(200); pm.expect(pm.response.json().token).to.be.a('string'); });"], "type": "text/javascript" } }],
+          "request": {
+            "method": "POST", "header": [],
+            "body": { "mode": "raw", "raw": "{\n    \"email\": \"expiry-test@test.com\",\n    \"otp\": \"{{expiryTestOtp}}\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "http://localhost:3000/api/auth/verify-otp", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "auth", "verify-otp"] }
+          },
+          "response": []
+        },
+        {
+          "name": "8. Delete user",
+          "event": [{ "listen": "test", "script": { "exec": ["pm.test('200 deleted', () => pm.response.to.have.status(200));"], "type": "text/javascript" } }],
+          "request": {
+            "method": "DELETE", "header": [],
+            "url": { "raw": "http://localhost:3000/api/auth/debug-delete/expiry-test@test.com", "protocol": "http", "host": ["localhost"], "port": "3000", "path": ["api", "auth", "debug-delete", "expiry-test@test.com"] }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Stress Test - 1. Setup (run once)",
+      "description": "Register a random account and get a token. Run this folder once before running the Transfer folder.",
+      "item": [
+        {
+          "name": "1. Register random account",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "const randomId = Math.random().toString(36).substring(2, 10);",
+                  "pm.collectionVariables.set('stressEmail', `stress_${randomId}@test.com`);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"{{stressEmail}}\",\n    \"password\": \"Secret123!\",\n    \"phone\": \"+972501234567\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/register",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "auth", "register"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "2. Get OTP",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const r = pm.response.json();",
+                  "pm.collectionVariables.set('stressOtp', r.otp);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/auth/debug-otp/{{stressEmail}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "auth", "debug-otp", "{{stressEmail}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "3. Verify OTP",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const r = pm.response.json();",
+                  "pm.collectionVariables.set('stressToken', r.token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"{{stressEmail}}\",\n    \"otp\": \"{{stressOtp}}\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/verify-otp",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "auth", "verify-otp"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Stress Test - 2. Transfer $1 (run via Collection Runner x3000)",
+      "description": "Open Collection Runner, select ONLY this folder, set Iterations to 3000, click Run. stressToken must be set first by running the Setup folder.",
+      "item": [
+        {
+          "name": "Transfer $1",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [{ "key": "token", "value": "{{stressToken}}", "type": "string" }]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"receiverEmail\": \"adirozeri@gmail.com\",\n    \"amount\": 1\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/transactions",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "transactions"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Stress Test - 3. Cleanup (run once)",
+      "description": "Delete the random stress test account after transfers are done.",
+      "item": [
+        {
+          "name": "Delete random account",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/auth/debug-delete/{{stressEmail}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3000",
+              "path": ["api", "auth", "debug-delete", "{{stressEmail}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": ""
+    },
+    {
+      "key": "senderOtp",
+      "value": ""
+    },
+    {
+      "key": "receiverOtp",
+      "value": ""
+    },
+    {
+      "key": "senderBalanceBefore",
+      "value": ""
+    },
+    {
+      "key": "senderToken",
+      "value": ""
+    },
+    {
+      "key": "receiverToken",
+      "value": ""
+    },
+    {
+      "key": "receiverBalanceBefore",
+      "value": ""
+    },
+    {
+      "key": "debugOtp",
+      "value": ""
+    },
+    {
+      "key": "debugToken",
+      "value": ""
+    },
+    {
+      "key": "realToken",
+      "value": ""
+    },
+    {
+      "key": "expiryTestOtp",
+      "value": ""
+    },
+    {
+      "key": "stressEmail",
+      "value": ""
+    },
+    {
+      "key": "stressOtp",
+      "value": ""
+    },
+    {
+      "key": "stressToken",
+      "value": ""
+    },
+    {
+      "key": "transferCount",
+      "value": ""
+    }
+  ]
+}
