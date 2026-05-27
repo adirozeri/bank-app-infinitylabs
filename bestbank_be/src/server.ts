@@ -29,7 +29,7 @@ app.use('/api/chat', chatRouter);
 
 const publicDir = join(__dirname, '../../public');
 app.use(express.static(publicDir));
-app.get('*', (_req, res) => res.sendFile(join(publicDir, 'index.html')));
+app.get('/{*path}', (_req, res) => res.sendFile(join(publicDir, 'index.html')));
 
 const httpServer = createServer(app);
 initSocket(httpServer);
